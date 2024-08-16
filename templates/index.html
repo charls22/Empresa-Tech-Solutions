@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Datos de Empresa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='tss.png') }}" alt="Logo de la Empresa" class="logo">
+        <h1>Tech Solutions</h1>
+
+    </header>
+
+    <div class="main-container">
+        <div class="form-container">
+            <h2>Ingresar Datos de Empresa</h2>
+            <form id="empresaForm">
+                <label for="nombre">Nombre de la Empresa:</label><br>
+                <input type="text" id="nombre" name="nombre"><br>
+                
+                <label for="direccion">Dirección:</label><br>
+                <input type="text" id="direccion" name="direccion"><br>
+                
+                <label for="telefono">Teléfono:</label><br>
+                <input type="text" id="telefono" name="telefono"><br>
+                
+                <label for="cantidad_trabajadores">Cantidad de Trabajadores:</label><br>
+                <input type="number" id="cantidad_trabajadores" name="cantidad_trabajadores"><br>
+                
+                <label for="pago_trabajadores">Pago de Trabajadores por Día (S/):</label><br>
+                <input type="number" id="pago_trabajadores" name="pago_trabajadores"><br>
+                
+                <button type="button" onclick="enviarDatos()">Guardar Datos</button>
+            </form>
+        </div>
+
+        <div class="search-container">
+            <h2>Buscar Empresa</h2>
+            <form id="buscarEmpresaForm">
+                <label for="buscar_nombre">Nombre de la Empresa:</label><br>
+                <input type="text" id="buscar_nombre" name="buscar_nombre"><br>
+                <button type="button" onclick="buscarEmpresa()">Buscar Empresa</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function enviarDatos() {
+            const nombre = document.getElementById('nombre').value;
+            const direccion = document.getElementById('direccion').value;
+            const telefono = document.getElementById('telefono').value;
+            const cantidad_trabajadores = document.getElementById('cantidad_trabajadores').value;
+            const pago_trabajadores = document.getElementById('pago_trabajadores').value;
+            
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    direccion: direccion,
+                    telefono: telefono,
+                    cantidad_trabajadores: cantidad_trabajadores,
+                    pago_trabajadores: pago_trabajadores
+                })
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function buscarEmpresa() {
+            const buscar_nombre = document.getElementById('buscar_nombre').value;
+            
+            window.open(`/buscar?nombre=${buscar_nombre}`, '_blank');
+        }
+    </script>
+</body>
+</html>

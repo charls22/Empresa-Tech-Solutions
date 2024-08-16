@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la Búsqueda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('{{ url_for('static', filename='fd.jpeg') }}'); /* Imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Espacio entre el logo y el contenedor de resultados */
+            background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenedor */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .logo {
+            width: 300px; /* Tamaño más grande del logo */
+            height: auto; /* Mantiene la proporción original del logo */
+            flex-shrink: 0; /* Asegura que el logo no se reduzca */
+        }
+
+        .resultado-container {
+            max-width: 600px;
+            width: 100%; /* Asegura que el contenedor de resultados ocupe todo el espacio disponible */
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            font-size: 28px; /* Tamaño del título más grande */
+        }
+
+        p {
+            font-size: 18px; /* Tamaño de fuente más grande para el contenido */
+            margin: 10px 0;
+        }
+
+        .highlight {
+            font-size: 20px; /* Tamaño de fuente más grande para el monto resaltado */
+            font-weight: bold;
+            color: #e53935; /* Color rojo para resaltar el monto */
+            background-color: #fbe9e7; /* Fondo suave para resaltar */
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #e53935; /* Borde del mismo color que el texto */
+        }
+
+        strong {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='tss.png') }}" alt="Logo de la Empresa" class="logo">
+        <div class="resultado-container">
+            <h2>Datos de la Empresa</h2>
+            <p><strong>Nombre:</strong> {{ data['nombre'] }}</p>
+            <p><strong>Dirección:</strong> {{ data['direccion'] }}</p>
+            <p><strong>Teléfono:</strong> {{ data['telefono'] }}</p>
+            <p><strong>Cantidad de Trabajadores:</strong> {{ data['cantidad_trabajadores'] }}</p>
+            <p><strong>Pago por Trabajador por Día:</strong> S/ {{ data['pago_trabajadores'] }}</p>
+            <p class="highlight"><strong>Presupuesto Mensual:</strong> S/ {{ data['presupuesto'] }}</p>
+        </div>
+    </div>
+</body>
+</html>
